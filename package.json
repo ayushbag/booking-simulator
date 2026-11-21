@@ -1,0 +1,33 @@
+{
+  "name": "booking-simulator",
+  "version": "1.0.0",
+  "description": "PostgreSQL concurrent movie booking simulator and real-time web app",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "concurrently --names api,web --prefix-colors yellow,cyan \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "dev:api": "npm --prefix backend run dev",
+    "dev:web": "npm --prefix frontend run dev",
+    "book": "tsx src/index.ts",
+    "build": "npm run build:cli && npm --prefix backend run build && npm --prefix frontend run build",
+    "build:cli": "tsc",
+    "start": "node dist/index.js",
+    "start:api": "npm --prefix backend run start",
+    "typecheck": "tsc --noEmit && npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
+    "concurrently": "^10.0.7",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+
+  --color-ink-950: #06080d;
+  --color-ink-900: #0a0e17;
+  --color-ink-850: #0d121d;
+  --color-ink-800: #111827;
+  --color-gold-200: #fbe8b8;
+  --color-gold-300: #f6d58a;
+  --color-gold-400: #f2c45d;
+  --color-gold-500: #e7ad35;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    background-color: var(--color-ink-950);
+    background-image:
+      radial-gradient(ellipse 80% 45% at 50% -10%, rgba(242, 196, 93, 0.13), transparent 70%),
+      radial-gradient(ellipse 55% 40% at 100% 10%, rgba(99, 102, 241, 0.09), transparent 70%),
+      radial-gradient(ellipse 55% 40% at 0% 35%, rgba(16, 185, 129, 0.05), transparent 70%);
+    background-attachment: fixed;
+    color: #e8ecf5;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(242, 196, 93, 0.28);
+    color: #fffaf0;
+  }
+
+  button,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #080b12;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #263044;
+    border-radius: 999px;
+    border: 2px solid #080b12;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #35425c;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-3xl border border-white/8 bg-ink-900/80 shadow-[0_24px_80px_-32px_rgba(0,0,0,0.9)] backdrop-blur-xl;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-300;
+  }
+
+  .screen-arc {
+    height: 46px;
+    border-top: 2px solid rgba(246, 213, 138, 0.78);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(246, 213, 138, 0.24), transparent 68%),
+      linear-gradient(to bottom, rgba(246, 213, 138, 0.1), transparent 72%);
+    box-shadow: 0 -14px 46px rgba(242, 196, 93, 0.13);
+  }
+
+  .film-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+    opacity: 0.055;
+    mix-blend-mode: soft-light;
+  }
+
+  .seat-chip {
+    @apply relative flex h-11 w-11 items-center justify-center rounded-xl border text-[11px] font-semibold transition-all duration-150 sm:h-12 sm:w-12 sm:text-xs;
+  }
+
+  .seat-available {
+    @apply border-slate-600/70 bg-slate-800/70 text-slate-200 hover:-translate-y-0.5 hover:border-gold-300/80 hover:bg-slate-700/80 hover:text-white;
+  }
+
+  .seat-selected {
+    @apply -translate-y-0.5 border-gold-200 bg-gold-400 text-ink-950 shadow-[0_10px_30px_-8px_rgba(242,196,93,0.65)];
+  }
+
+  .seat-booked {
+    @apply cursor-not-allowed border-slate-800/80 bg-slate-900/70 text-slate-600 line-through opacity-60;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-modal-in {
+  animation: modal-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-toast-in {
+  animation: toast-in 0.24s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
